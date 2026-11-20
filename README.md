@@ -1,10 +1,10 @@
 # Vice Cover Studio v2
 
-[![make.fun](https://img.shields.io/badge/make.fun-GTA%206%20Cover%20Art-ff4fa3?style=for-the-badge)](https://make.fun/bounty/gta6-cover-art-01)
-[![Live](https://img.shields.io/badge/status-live-7dff9b?style=for-the-badge)](https://make.fun/bounty/gta6-cover-art-01)
-[![License: MIT](https://img.shields.io/badge/License-MIT-ffc93c?style=for-the-badge)](LICENSE)
+[![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/roymaster46/gta6-cover-art-v2/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![reward](https://make.fun/badge/gta6-cover-art-01/roymaster46/gta6-cover-art-v2/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 
-Turn your crew into a **GTA 6 movie-poster key art** — seven lives, one coast, no way back.
+Turn your crew into a **GTA 6 movie-poster key art** — seven outlaws, one coast, no way back.
 
 A single-page canvas studio that draws a dense, cinematic 16:9 poster entirely in
 JavaScript: seven different cast portraits in a multi-panel grid, one large
