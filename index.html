@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vice Cover Studio v2 — GTA 6 Cover Art Maker</title>
+<style>
+  :root {
+    --bg: #12081f;
+    --panel: #1d0f33;
+    --panel2: #251243;
+    --line: #3d2364;
+    --ink: #f5eefc;
+    --muted: #b9a3d6;
+    --gold: #ffc93c;
+    --pink: #ff4fa3;
+    --orange: #ff7a1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1200px 700px at 20% -10%, #3b1155 0%, var(--bg) 55%),
+                radial-gradient(900px 600px at 110% 110%, #4a0e33 0%, transparent 60%);
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    padding: 18px 26px 10px;
+  }
+  header h1 {
+    font-size: 30px; letter-spacing: 2px; font-weight: 900;
+    background: linear-gradient(90deg, #ffe259, #ff7a1a 35%, #ff4fa3 70%, #b06bff);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-transform: uppercase;
+  }
+  header h1 span { -webkit-text-fill-color: var(--gold); color: var(--gold); }
+  header p { color: var(--muted); font-size: 14px; }
+  .badge {
+    margin-left: auto; font-size: 11px; letter-spacing: 2px; font-weight: 700;
+    color: #1a0b2e; background: var(--gold); border-radius: 999px; padding: 6px 12px;
+    text-transform: uppercase;
+  }
+  main { display: flex; gap: 22px; padding: 8px 26px 26px; align-items: flex-start; flex-wrap: wrap; }
+  .stage { flex: 1 1 640px; min-width: 320px; }
+  .canvas-wrap {
+    background: #000; border: 1px solid var(--line); border-radius: 14px;
+    padding: 10px; box-shadow: 0 18px 50px rgba(0,0,0,.55);
+  }
+  canvas { display: block; width: 100%; height: auto; border-radius: 8px; }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 10px; line-height: 1.5; }
+  .hint b { color: var(--gold); }
+  aside {
+    flex: 0 0 330px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 16px;
+  }
+  aside h2 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; letter-spacing: 1px; text-transform: uppercase; }
+  .field input[type="text"], .field select {
+    width: 100%; background: #150a26; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 8px; padding: 9px 11px; font-size: 14px; outline: none;
+  }
+  .field input[type="text"]:focus, .field select:focus { border-color: var(--pink); }
+  .row { display: flex; gap: 10px; }
+  .row .field { flex: 1; }
+  .cast { display: flex; flex-direction: column; gap: 7px; }
+  .cast-row {
+    display: flex; align-items: center; gap: 8px; background: var(--panel2);
+    border: 1px solid var(--line); border-radius: 8px; padding: 6px 9px; font-size: 13px;
+  }
+  .cast-row .role { font-weight: 800; letter-spacing: 1px; font-size: 11px; color: var(--gold); width: 96px; flex: none; }
+  .cast-row .fname { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .cast-row input[type="file"] { display: none; }
+  .cast-row .up {
+    flex: none; cursor: pointer; background: #3a1d63; border: 1px solid var(--line);
+    color: var(--ink); border-radius: 6px; padding: 5px 9px; font-size: 12px;
+  }
+  .cast-row .up:hover { border-color: var(--pink); }
+  .exports { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    cursor: pointer; border: none; border-radius: 9px; padding: 11px 14px;
+    font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .btn-pink { background: linear-gradient(90deg, #ff4fa3, #ff7a1a); color: #fff; flex: 1; }
+  .btn-gold { background: var(--gold); color: #1a0b2e; flex: 1; }
+  .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); flex: 1; }
+  .btn:hover { filter: brightness(1.12); }
+  .btn:active { transform: translateY(1px); }
+  #status { font-size: 12px; color: var(--muted); min-height: 16px; }
+  #status.ok { color: #7dff9b; }
+  footer { padding: 0 26px 22px; color: var(--muted); font-size: 12px; }
+  footer a { color: var(--gold); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Vice Cover <span>Studio</span> v2</h1>
+  <p>Turn your crew into a GTA&nbsp;6 movie-poster key art — seven lives, one coast, no way back.</p>
+  <span class="badge">GTA 6 Cover Art · $250</span>
+</header>
+
+<main>
+  <section class="stage">
+    <div class="canvas-wrap">
+      <canvas id="poster" width="1600" height="900"></canvas>
+    </div>
+    <p class="hint">
+      <b>Pop-out hero:</b> the driver breaks out of his frame and overlaps the title.
+      Edit the copy, swap any cast photo, pick a grade and a layout, then export your poster.
+      The poster is drawn entirely on canvas — no libraries, no uploads.
+    </p>
+  </section>
+
+  <aside>
+    <h2>Poster Copy</h2>
+    <div class="field">
+      <label for="inTitle">Title</label>
+      <input type="text" id="inTitle" value="VICE HEAT" maxlength="14">
+    </div>
+    <div class="field">
+      <label for="inSubtitle">Script subtitle</label>
+      <input type="text" id="inSubtitle" value="Kings of the Coast" maxlength="30">
+    </div>
+    <div class="field">
+      <label for="inQuote">Press quote</label>
+      <input type="text" id="inQuote" value="A FEVER DREAM IN NEON" maxlength="42">
+    </div>
+    <div class="field">
+      <label for="inTagline">Tagline</label>
+      <input type="text" id="inTagline" value="SEVEN LIVES · ONE COAST · NO WAY BACK" maxlength="48">
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="inGrade">Grade</label>
+        <select id="inGrade">
+          <option value="sunset" selected>Sunset</option>
+          <option value="neon">Vice Neon</option>
+          <option value="golden">Golden Hour</option>
+          <option value="twilight">Twilight</option>
+          <option value="heatwave">Heatwave</option>
+          <option value="noir">Noir</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="inLayout">Layout</label>
+        <select id="inLayout">
+          <option value="center" selected>Center Hero</option>
+          <option value="slanted">Slanted Panels</option>
+        </select>
+      </div>
+    </div>
+
+    <h2>Cast — swap any photo</h2>
+    <div class="cast" id="castList"></div>
+
+    <h2>Export PNG</h2>
+    <div class="exports">
+      <button class="btn btn-pink" data-export="16:9">16:9 Poster</button>
+      <button class="btn btn-gold" data-export="4:5">4:5 Post</button>
+      <button class="btn btn-ghost" data-export="1:1">1:1 Square</button>
+    </div>
+    <div id="status">Loading cast photos…</div>
+  </aside>
+</main>
+
+<footer>
+  Vice Cover Studio v2 — a fresh build for the
+  <a href="https://make.fun/bounty/gta6-cover-art-01" target="_blank" rel="noopener">make.fun GTA 6 Cover Art bounty</a>.
+  All seven portraits are original sample photos shipped with this repo. MIT licensed.
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
